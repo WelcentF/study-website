@@ -1,2 +1,1 @@
-# study-
-website
+# study-website
