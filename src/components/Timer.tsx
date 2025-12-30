@@ -1,3 +1,4 @@
+import "./Timer.css";
 import { useState, useEffect, use } from "react";
 
 function Timer() {
@@ -6,6 +7,15 @@ function Timer() {
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(true);
   const [isBreak, setIsBreak] = useState(false);
+
+  const handleStart = () => setIsActive(true);
+  const handlePause = () => setIsActive(false);
+  const handleReset = () => {
+    setIsActive(false);
+    setHours(0);
+    setMinutes(25);
+    setSeconds(0);
+  };
 
   useEffect(() => {
     let interval: number | undefined;
@@ -22,14 +32,10 @@ function Timer() {
           setMinutes(59);
           setSeconds(59);
         } else {
-          // reached 00:00:00
-          // setIsActive(false);
-
           const nextIsBreak = !isBreak;
           setIsBreak(nextIsBreak);
           setMinutes(isBreak ? 25 : 5);
           setSeconds(0);
-          // alert(isBreak ? "Break Ended" : "Work Session Ended");
         }
       }, 1000);
     }
@@ -38,9 +44,30 @@ function Timer() {
   }, [isActive, hours, minutes, seconds]);
 
   return (
-    <p>
-      {hours}:{minutes}:{seconds}
-    </p>
+    <div>
+      <div className="timer-labels">
+        <span>HOURS</span>
+        <span>SECONDS</span>
+        <span>MINUTES</span>
+      </div>
+      <p className="time-display">
+        {hours.toString().padStart(2, "0")}:
+        {minutes.toString().padStart(2, "0")}:
+        {seconds.toString().padStart(2, "0")}
+      </p>
+      <div className="buttons">
+        <button className="buttons reset-button" onClick={handleReset}>
+          Reset
+        </button>
+        <button className="buttons start-button" onClick={handleStart}>
+          Start
+        </button>
+        <button className="buttons pause-button" onClick={handlePause}>
+          Pause
+        </button>
+      </div>
+      <button className="setting-button">Settings</button>
+    </div>
   );
 }
 

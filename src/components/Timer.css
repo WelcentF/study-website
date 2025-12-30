@@ -1,0 +1,65 @@
+
+body {
+  font-family: var(--font-retro);
+}
+.time-display {
+  color: #121212;
+  font-size: 3rem;
+  text-shadow: 3px 3px 0px #afafaf; 
+}
+
+.timer-labels {
+  display: flex;
+  justify-content: space-around; 
+  width: 100%;
+  max-width: 450px; 
+}
+
+.timer-labels span {
+  font-size: 0.7rem;
+  color: #888;
+  letter-spacing: 1px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  border-color: black;
+}
+
+.start-button{
+  background-color:  #92CD41;
+  box-shadow: inset -3px -3px 0px 0px #4AA52E;
+}
+
+.pause-button{
+  background-color: #F7D51D;
+  box-shadow: inset -3px -3px 0px 0px #b99f0d;
+}
+
+.reset-button{
+  background-color:  #E76E55;
+  box-shadow: inset -3px -3px 0px 0px #9c3335;
+}
+
+.setting-button {
+  margin-top: 10px;
+  box-shadow: inset -3px -3px 0px 0px #aeaeae;
+}
+
+
+.start-button:active{
+  box-shadow: inset 3px 3px 0px 0px #4AA52E;
+}
+.pause-button:active{
+
+  box-shadow: inset 3px 3px 0px 0px #b99f0d;
+}
+
+.reset-button:active {
+  box-shadow: inset 3px 3px 0px 0px #9c3335;
+}
+
+.setting-button:active {
+  box-shadow: inset 3px 3px 0px 0px #aeaeae;
+}
