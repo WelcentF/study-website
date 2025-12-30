@@ -1,3 +1,4 @@
+import SettingsModal from "./SettingsModal";
 import "./Timer.css";
 import { useState, useEffect, use } from "react";
 
@@ -16,6 +17,8 @@ function Timer() {
     setMinutes(25);
     setSeconds(0);
   };
+
+  const [openSettingsModal, setOpenSettingsModal] = useState(false);
 
   useEffect(() => {
     let interval: number | undefined;
@@ -47,8 +50,8 @@ function Timer() {
     <div>
       <div className="timer-labels">
         <span>HOURS</span>
-        <span>SECONDS</span>
         <span>MINUTES</span>
+        <span>SECONDS</span>
       </div>
       <p className="time-display">
         {hours.toString().padStart(2, "0")}:
@@ -66,7 +69,19 @@ function Timer() {
           Pause
         </button>
       </div>
-      <button className="setting-button">Settings</button>
+      <div className="setting-buttion-container">
+        <button
+          className="setting-button"
+          onClick={() => {
+            setOpenSettingsModal(true);
+          }}
+        >
+          Settings
+        </button>
+      </div>
+      {openSettingsModal && (
+        <SettingsModal closeSettingsModal={setOpenSettingsModal} />
+      )}
     </div>
   );
 }

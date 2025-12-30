@@ -1,0 +1,74 @@
+.settings-modal-background {
+  position: fixed;    /* Stay in place even if you scroll */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /*background-color: rgba(0, 0, 0, 0.1); */
+  
+  /* Centering Logic */
+  display: flex;
+  justify-content: center; /* Horizontal center */
+  align-items: center;     /* Vertical center */
+  
+  z-index: 9999;          
+}
+
+.settings-modal-container {
+  background-color: rgba(164, 203, 228, 0.92);
+  box-shadow: 10px 10px 0px 0px #121212;
+  padding: 40px;
+  border: 4px solid #121212; 
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 320px;
+  position: relative;        /* To position the X button inside */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+.close-button button {
+  background: none;
+  border: none;
+  color: black;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.set-time{
+  display: flex;
+  flex-direction: column; /* This stacks the <p> on top of the controls div */
+  align-items: center; /* Aligns text to the left */
+  width: 100%;
+  gap: 10px; /* Uniform spacing for a cleaner look */
+}
+
+.settings-modal-container input {
+  width: 100px;
+  background: #ffffff;
+  border: 2px solid #000000;
+  color: #000000;
+  padding: 5px;
+  font-family: 'Silkscreen', sans-serif;
+  outline: none;
+  margin-right: 10px;
+}
+
+.save-button {
+  background-color: rgb(205, 231, 167);
+  box-shadow: inset -3px -3px 0px 0px rgb(139, 182, 74);
+}
+
+.save-button:active {
+  box-shadow: inset 3px 3px 0px 0px rgb(139, 182, 74);
+}
+
+.button-spacing {
+  display: flex;
+}
+

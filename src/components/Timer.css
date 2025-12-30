@@ -2,6 +2,13 @@
 body {
   font-family: var(--font-retro);
 }
+
+button:hover {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+
 .time-display {
   color: #121212;
   font-size: 3rem;
@@ -45,8 +52,9 @@ body {
 .setting-button {
   margin-top: 10px;
   box-shadow: inset -3px -3px 0px 0px #aeaeae;
+  margin-left: 31%;
+  margin-right: 31%;
 }
-
 
 .start-button:active{
   box-shadow: inset 3px 3px 0px 0px #4AA52E;
@@ -62,4 +70,8 @@ body {
 
 .setting-button:active {
   box-shadow: inset 3px 3px 0px 0px #aeaeae;
+}
+
+.setting-buttion-container {
+  align-items: center
 }
