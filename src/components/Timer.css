@@ -12,7 +12,7 @@ button:hover {
 .time-display {
   color: #121212;
   font-size: 3rem;
-  text-shadow: 3px 3px 0px #afafaf; 
+  text-shadow: 3px 3px 0px white/*#afafaf*/; 
 }
 
 .timer-labels {
@@ -24,7 +24,7 @@ button:hover {
 
 .timer-labels span {
   font-size: 0.7rem;
-  color: #888;
+  color: rgb(0, 0, 0)/*#888*/;
   letter-spacing: 1px;
 }
 
@@ -79,5 +79,7 @@ button:hover {
 .status-title {
   text-align:center;
   font-size: 3rem;
-  text-shadow: 3px 3px 0px #afafaf;
+  text-shadow: 3px 3px 0px #ffffff;
+  /*#afafaf*/
 }
+

@@ -1,4 +1,12 @@
-/* App.css */
+body {
+  background-image: url(./assets/demo4.gif);
+  background-size:cover;
+  background-position: center;
+
+  cursor: url(), auto;
+}
+
+
 .app-container {
   display: flex;
   flex-direction: column;

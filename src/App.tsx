@@ -1,13 +1,13 @@
 import Timer from "./components/Timer";
 import "./App.css";
+import TodoModal from "./components/TodoModal";
 
 function App() {
   return (
     <div className="app-container">
-      {/* <header>
-        <h1>STUDY DASHBOARD</h1>
-      </header> */}
-
+      <div className="todo-box">
+        <TodoModal />
+      </div>
       <main>
         <Timer />
       </main>
