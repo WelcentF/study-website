@@ -4,15 +4,19 @@ import TimeInput from "./TimeInput";
 
 interface SettingsModalProps {
   closeSettingsModal: (value: boolean) => void;
+  onSaveSettings: (studyTime: string, breakTime: string) => void;
 }
 
-function SettingsModal({ closeSettingsModal }: SettingsModalProps) {
-  const [studyTime, setStudyTime] = useState("");
-  const [breakTime, setBreakTime] = useState("");
+function SettingsModal({
+  closeSettingsModal,
+  onSaveSettings,
+}: SettingsModalProps) {
+  const [studyTime, setStudyTime] = useState("00:25:00");
+  const [breakTime, setBreakTime] = useState("00:05:00");
   const handleSave = () => {
     console.log("Saving Times:", { studyTime, breakTime });
-    setStudyTime(studyTime);
-    setBreakTime(breakTime);
+    onSaveSettings(studyTime, breakTime); // callback function to pass times to Timer
+    closeSettingsModal(false); // closing modal
   };
 
   return (

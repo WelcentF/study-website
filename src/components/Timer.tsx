@@ -3,6 +3,14 @@ import "./Timer.css";
 import { useState, useEffect } from "react";
 
 function Timer() {
+  const [studyHours, setStudyHours] = useState(0);
+  const [studyMinutes, setStudyMinutes] = useState(25);
+  const [studySeconds, setStudySeconds] = useState(0);
+
+  const [breakHours, setBreakHours] = useState(0);
+  const [breakMinutes, setBreakMinutes] = useState(5);
+  const [breakSeconds, setBreakSeconds] = useState(0);
+
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
@@ -13,12 +21,44 @@ function Timer() {
   const handlePause = () => setIsActive(false);
   const handleReset = () => {
     setIsActive(false);
-    setHours(0);
-    setMinutes(25);
-    setSeconds(0);
+    if (isBreak) {
+      setHours(breakHours);
+      setMinutes(breakMinutes);
+      setSeconds(breakSeconds);
+    } else {
+      setHours(studyHours);
+      setMinutes(studyMinutes);
+      setSeconds(studySeconds);
+    }
   };
 
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
+
+  const handleSaveSettings = (studyTime: string, breakTime: string) => {
+    // parse study time
+    const studyParts = studyTime.split(":").map((n) => parseInt(n) || 0);
+    setStudyHours(studyParts[0] || 0);
+    setStudyMinutes(studyParts[1] || 0);
+    setStudySeconds(studyParts[2] || 0);
+
+    // parse break time
+    const breakParts = breakTime.split(":").map((n) => parseInt(n) || 0);
+    setBreakHours(breakParts[0] || 0);
+    setBreakMinutes(breakParts[1] || 0);
+    setBreakSeconds(breakParts[2] || 0);
+
+    // reset timer with new values
+    setIsActive(false);
+    if (isBreak) {
+      setHours(breakParts[0] || 0);
+      setMinutes(breakParts[1] || 0);
+      setSeconds(breakParts[2] || 0);
+    } else {
+      setHours(studyParts[0] || 0);
+      setMinutes(studyParts[1] || 0);
+      setSeconds(studyParts[2] || 0);
+    }
+  };
 
   useEffect(() => {
     let interval: number | undefined;
@@ -37,14 +77,34 @@ function Timer() {
         } else {
           const nextIsBreak = !isBreak;
           setIsBreak(nextIsBreak);
-          setMinutes(isBreak ? 25 : 5);
-          setSeconds(0);
+
+          if (nextIsBreak) {
+            setHours(breakHours);
+            setMinutes(breakMinutes);
+            setSeconds(breakSeconds);
+          } else {
+            setHours(studyHours);
+            setMinutes(studyMinutes);
+            setSeconds(studySeconds);
+          }
         }
       }, 1000);
     }
 
     return () => clearInterval(interval);
-  }, [isActive, hours, minutes, seconds]);
+  }, [
+    isActive,
+    hours,
+    minutes,
+    seconds,
+    isBreak,
+    studyHours,
+    studyMinutes,
+    studySeconds,
+    breakHours,
+    breakMinutes,
+    breakSeconds,
+  ]);
 
   return (
     <div>
@@ -80,7 +140,10 @@ function Timer() {
         </button>
       </div>
       {openSettingsModal && (
-        <SettingsModal closeSettingsModal={setOpenSettingsModal} />
+        <SettingsModal
+          closeSettingsModal={setOpenSettingsModal}
+          onSaveSettings={handleSaveSettings}
+        />
       )}
     </div>
   );
