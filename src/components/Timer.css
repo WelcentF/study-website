@@ -73,5 +73,11 @@ button:hover {
 }
 
 .setting-buttion-container {
-  align-items: center
+  align-items: center;
+}
+
+.status-title {
+  text-align:center;
+  font-size: 3rem;
+  text-shadow: 3px 3px 0px #afafaf;
 }

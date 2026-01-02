@@ -108,6 +108,7 @@ function Timer() {
 
   return (
     <div>
+      <h2 className="status-title">{isBreak ? "REST" : "STUDY"}</h2>
       <div className="timer-labels">
         <span>HOURS</span>
         <span>MINUTES</span>
