@@ -1,12 +1,12 @@
 import SettingsModal from "./SettingsModal";
 import "./Timer.css";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 
 function Timer() {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
 
   const handleStart = () => setIsActive(true);
