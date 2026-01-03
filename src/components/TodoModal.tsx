@@ -1,24 +1,58 @@
+import { useState } from "react";
 import "./TodoModal.css";
 
 function TodoModal() {
-  const tasks = ["hi", "ww", "ss"];
+  const [tasks, setTasks] = useState([""]);
+  const [inputValue, setInputValue] = useState("");
 
-  const addTask = (task: string) => {
-    return;
+  const handleAdd = () => {
+    if (inputValue.trim() === "") {
+      return;
+    }
+    setTasks([...tasks, inputValue]);
+    setInputValue("");
   };
 
-  const handleDelete = () => {};
+  const handleDelete = (taskToDelete: string) => {
+    setTasks(tasks.filter((task) => task !== taskToDelete));
+  };
 
   return (
-    <div>
+    <div className="todo-container">
       <h3>Todo List</h3>
-      {tasks.length === 0 && <p>No Tasks</p>}
+
+      <div className="add-task-row">
+        <textarea
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Add task"
+          className="pixel-textarea"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleAdd();
+            }
+          }}
+        />
+        <button className="add-button" onClick={handleAdd}>
+          +
+        </button>
+      </div>
+
+      {tasks.length === 0 && <p className="no-tasks">All done!</p>}
+
       <ul className="list-group">
-        {tasks.map((task) => (
-          <li key={task} className="task">
-            {task}
-            <button onClick={handleDelete}>delete</button>
-            <button>edit</button>
+        {tasks.map((task, index) => (
+          <li key={index} className="task-item">
+            <span className="task-text">{task}</span>
+            <div className="task-buttons">
+              <button
+                className="delete-button"
+                onClick={() => handleDelete(task)}
+              >
+                delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>

@@ -37,16 +37,19 @@ button:hover {
 .start-button{
   background-color:  #92CD41;
   box-shadow: inset -3px -3px 0px 0px #4AA52E;
+  transition: all 0.2s ease;
 }
 
 .pause-button{
   background-color: #F7D51D;
   box-shadow: inset -3px -3px 0px 0px #b99f0d;
+  transition: all 0.2s ease;
 }
 
 .reset-button{
   background-color:  #E76E55;
   box-shadow: inset -3px -3px 0px 0px #9c3335;
+  transition: all 0.2s ease;
 }
 
 .setting-button {
@@ -54,6 +57,7 @@ button:hover {
   box-shadow: inset -3px -3px 0px 0px #aeaeae;
   margin-left: 31%;
   margin-right: 31%;
+  transition: all 0.2s ease;
 }
 
 .start-button:active{
