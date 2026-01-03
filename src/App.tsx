@@ -1,22 +1,32 @@
 /* src/App.tsx */
+import { useState, useEffect } from "react";
 import Timer from "./components/Timer";
 import "./App.css";
 import TodoModal from "./components/TodoModal";
 
 function App() {
-  const toggleFullScreen = (): void => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
+  const [isTodoVisible, setIsTodoVisible] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // Show if cursor is near left edge (within 50px)
+      if (e.clientX < 50) {
+        setIsTodoVisible(true);
       }
-    }
-  };
+      // Hide if cursor moves away (past 450px to give space for the modal)
+      else if (e.clientX > 450) {
+        setIsTodoVisible(false);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
     <div className="app-container">
-      <aside className="todo-section">
+      {/* The aside now uses a dynamic class for visibility */}
+      <aside className={`todo-section ${isTodoVisible ? "visible" : "hidden"}`}>
         <TodoModal />
       </aside>
 
@@ -25,14 +35,11 @@ function App() {
       </main>
 
       <section className="music-section">
-        {/* Replace with your Music component later */}
         <p>MUSIC PLAYER</p>
       </section>
 
       <aside className="notes-section">
-        {/* Replace with your Notes component later */}
         <p>NOTES</p>
-        <button onClick={() => toggleFullScreen()}>full</button>
       </aside>
     </div>
   );
