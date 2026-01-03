@@ -22,8 +22,11 @@
   width: 400px; /* Matches the width of the grid placeholder */
   z-index: 1000;
   transition: transform 0.3s ease;
-  background: rgba(255, 255, 255, 0.2);
   box-shadow: 6px 6px 5px 0px rgba(0, 0, 0, 0.2);
+
+    backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(10px);
+  
 }
 
 .todo-section.hidden {
