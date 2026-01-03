@@ -1,61 +1,81 @@
-import { useState } from "react";
+/* src/components/TodoModal.tsx */
+import { useState, useRef, useEffect } from "react";
 import "./TodoModal.css";
 
 function TodoModal() {
-  const [tasks, setTasks] = useState([""]);
-  const [inputValue, setInputValue] = useState("");
+  const [tasks, setTasks] = useState<string[]>([]);
+  const [isAdding, setIsAdding] = useState(false);
+  const [tempTask, setTempTask] = useState("");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleAdd = () => {
-    if (inputValue.trim() === "") {
-      return;
+  // Auto-focus the textarea when it appears
+  useEffect(() => {
+    if (isAdding && textareaRef.current) {
+      textareaRef.current.focus();
     }
-    setTasks([...tasks, inputValue]);
-    setInputValue("");
+  }, [isAdding]);
+
+  const handleSave = () => {
+    if (tempTask.trim() !== "") {
+      setTasks([...tasks, tempTask]);
+    }
+    setTempTask("");
+    setIsAdding(false);
   };
 
-  const handleDelete = (taskToDelete: string) => {
-    setTasks(tasks.filter((task) => task !== taskToDelete));
+  const handleDelete = (index: number) => {
+    setTasks(tasks.filter((_, i) => i !== index));
   };
 
   return (
     <div className="todo-container">
-      <h3>Todo List</h3>
-
-      <div className="add-task-row">
-        <textarea
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Add task"
-          className="pixel-textarea"
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              handleAdd();
-            }
-          }}
-        />
-        <button className="add-button" onClick={handleAdd}>
+      <div className="todo-header">
+        <h3>Todo List</h3>
+        <button className="add-button-circle" onClick={() => setIsAdding(true)}>
           +
         </button>
       </div>
 
-      {tasks.length === 0 && <p className="no-tasks">All done!</p>}
-
       <ul className="list-group">
+        {/* The Sliding Input Area */}
+        {isAdding && (
+          <li className="task-item new-task-slide">
+            <textarea
+              ref={textareaRef}
+              value={tempTask}
+              onChange={(e) => setTempTask(e.target.value)}
+              placeholder="Type task..."
+              className="inline-textarea"
+              onBlur={handleSave} // Saves when you click away
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSave();
+                }
+                if (e.key === "Escape") {
+                  setIsAdding(false);
+                  setTempTask("");
+                }
+              }}
+            />
+          </li>
+        )}
+
+        {/* Existing Tasks */}
         {tasks.map((task, index) => (
           <li key={index} className="task-item">
             <span className="task-text">{task}</span>
-            <div className="task-buttons">
-              <button
-                className="delete-button"
-                onClick={() => handleDelete(task)}
-              >
-                delete
-              </button>
-            </div>
+            <button
+              className="delete-button"
+              onClick={() => handleDelete(index)}
+            >
+              delete
+            </button>
           </li>
         ))}
       </ul>
+
+      {tasks.length === 0 && !isAdding && <p className="no-tasks">All done!</p>}
     </div>
   );
 }
