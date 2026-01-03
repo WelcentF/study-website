@@ -7,6 +7,16 @@ import TodoModal from "./components/TodoModal";
 function App() {
   const [isTodoVisible, setIsTodoVisible] = useState(false);
 
+  const toggleFullScreen = (): void => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  };
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       // Show if cursor is near left edge (within 50px)
@@ -39,7 +49,10 @@ function App() {
       </section>
 
       <aside className="notes-section">
-        <p>NOTES</p>
+        <p>
+          NOTES
+          <button onClick={() => toggleFullScreen()}>full</button>
+        </p>
       </aside>
     </div>
   );

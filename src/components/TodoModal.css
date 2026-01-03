@@ -1,5 +1,10 @@
+h3 {
+  padding-bottom: 30px;
+}
+
 .todo-container {
-  padding: 20px;
+  padding: 30px;
+  padding-top: 60px;
   min-width: 350px;
   color: #000000;
   text-shadow: 3px 3px 0px white;
@@ -70,6 +75,9 @@
   background-color: rgb(205, 231, 167);
   box-shadow: inset -3px -3px 0px 0px rgb(139, 182, 74);
   transition: all 0.2s ease;
+  margin-left: 0.7rem;
+  margin-right: 2rem;
+
 }
 
 .delete-button:active{

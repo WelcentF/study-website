@@ -2,7 +2,9 @@
 body {
   font-family: var(--font-retro);
 }
-
+button {
+  border: none;
+}
 button:hover {
   transform: scale(1.1);
   filter: brightness(1.1);

@@ -31,12 +31,21 @@ function TodoModal() {
     <div className="todo-container">
       <div className="todo-header">
         <h3>Todo List</h3>
-        <button className="add-button-circle" onClick={() => setIsAdding(true)}>
-          +
-        </button>
       </div>
 
       <ul className="list-group">
+        {/* Existing Tasks */}
+        {tasks.map((task, index) => (
+          <li key={index} className="task-item">
+            <span className="task-text">{task}</span>
+            <button
+              className="delete-button"
+              onClick={() => handleDelete(index)}
+            >
+              -
+            </button>
+          </li>
+        ))}
         {/* The Sliding Input Area */}
         {isAdding && (
           <li className="task-item new-task-slide">
@@ -60,22 +69,10 @@ function TodoModal() {
             />
           </li>
         )}
-
-        {/* Existing Tasks */}
-        {tasks.map((task, index) => (
-          <li key={index} className="task-item">
-            <span className="task-text">{task}</span>
-            <button
-              className="delete-button"
-              onClick={() => handleDelete(index)}
-            >
-              delete
-            </button>
-          </li>
-        ))}
+        <button className="add-button" onClick={() => setIsAdding(true)}>
+          Add New Task
+        </button>
       </ul>
-
-      {tasks.length === 0 && !isAdding && <p className="no-tasks">All done!</p>}
     </div>
   );
 }

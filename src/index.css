@@ -17,8 +17,7 @@
 body {
   margin: 0;
   padding: 0;
-  /* Remove flex centering and transforms */
-  background-image: url(./assets/demo4.gif); /* Move background here */
+  background-image: url(./assets/demo4.gif); 
   background-size: cover;
   background-position: center;
   height: 100vh;
