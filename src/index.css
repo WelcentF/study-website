@@ -17,23 +17,16 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--bg-color) !important; 
-  color: var(--text-main);
-  
-  /* These lines center your app on the screen */
-  display: flex;
-  justify-content: center; 
-  align-items: center;
-  min-height: 100vh;
+  /* Remove flex centering and transforms */
+  background-image: url(./assets/demo4.gif); /* Move background here */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
   width: 100vw;
-  overflow-x: hidden;
-  transform: translateY(-2rem);
+  overflow: hidden;
 }
 
 #root {
   width: 100%;
-  max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: 100%;
 }

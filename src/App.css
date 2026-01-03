@@ -1,16 +1,7 @@
-body {
-  background-image: url(./assets/demo4.gif);
-  background-size:cover;
-  background-position: center;
-
-  cursor: url(), auto;
-}
-
-
-.app-container {
+/*.app-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
   min-height: 100vh;
@@ -19,7 +10,7 @@ body {
 header h1 {
   font-family: 'Press Start 2P', cursive;
   font-size: 1.5rem;
-  color: #92CD41; /* Match your green button! */
+  color: #92CD41; 
   margin-bottom: 3rem;
   text-shadow: 4px 4px 0px #000;
 }
@@ -28,4 +19,67 @@ main {
   width: 100%;
   display: flex;
   justify-content: center;
+} */
+
+.todo-container {
+  flex: 1; /* Allow the box to take up space */
+  max-width: 300px; /* Adjust width as needed */
+}
+
+
+
+/* src/App.css */
+
+.app-container {
+  display: grid;
+  /* Columns: Left(To-Do), Middle(Timer/Music), Right(Notes) */
+  grid-template-columns: 400px 1fr 400px; 
+  /* Rows for the middle section */
+  grid-template-rows: 1fr 400px;
+  gap: 20px;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Position To-Do on the left, spanning both rows */
+.todo-section {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  background-color: rgba(192, 230, 249, 0.3); /* Matching your theme */
+  border: 4px solid #121212;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Position Timer in the top middle */
+.timer-section {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Position Music in the bottom middle */
+.music-section {
+  grid-column: 2;
+  grid-row: 2;
+  background-color: rgba(205, 231, 167, 0.3);
+  border: 4px solid #121212;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+/* Position Notes on the right, spanning both rows */
+.notes-section {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  background-color: rgba(247, 213, 29, 0.3);
+  border: 4px solid #121212;
+  padding: 20px;
+  border-radius: 10px;
 }
