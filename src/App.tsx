@@ -5,7 +5,8 @@ import "./App.css";
 import TodoModal from "./components/TodoModal";
 
 function App() {
-  const [isTodoVisible, setIsTodoVisible] = useState(false);
+  const [isTodoVisible, setIsTodoVisible] = useState(true);
+  const [isNotesVisible, setIsNotesVisible] = useState(true);
 
   const toggleFullScreen = (): void => {
     if (!document.fullscreenElement) {
@@ -33,6 +34,19 @@ function App() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (e.clientX < 120) {
+        setIsNotesVisible(true);
+      } else if (e.clientX < 450) {
+        setIsNotesVisible(false);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   return (
     <div className="app-container">
       {/* The aside now uses a dynamic class for visibility */}
@@ -48,7 +62,9 @@ function App() {
         <p>MUSIC PLAYER</p>
       </section>
 
-      <aside className="notes-section">
+      <aside
+        className={`notes-section ${isNotesVisible ? "visible" : "hidden"}`}
+      >
         <p>
           NOTES
           <button onClick={() => toggleFullScreen()}>full</button>

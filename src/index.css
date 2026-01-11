@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen&display=swap");
 
 :root {
   /* Spotify-style Dark Theme */
   --bg-color: #ffffff;
   --card-bg: #181818;
-  --spotify-green: #1DB954;
+  --spotify-green: #1db954;
   --text-main: #ffffff;
   --text-sub: #b3b3b3;
-  --font-retro: 'Press Start 2P', cursive;
-  --font-pixel: 'Silkscreen', sans-serif;
+  --font-retro: "Press Start 2P", cursive;
+  --font-pixel: "Silkscreen", sans-serif;
 
   line-height: 1.5;
   font-weight: 400;
@@ -17,7 +17,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: url(./assets/demo4.gif); 
+  /*background-image: url(./assets/demo4.gif); */
   background-size: cover;
   background-position: center;
   height: 100vh;
