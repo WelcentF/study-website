@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Timer from "./components/Timer";
 import "./App.css";
 import TodoModal from "./components/TodoModal";
+import SpotifyPlayer from "./components/SpotifyPlayer";
 
 function App() {
   const [isTodoVisible, setIsTodoVisible] = useState(true);
@@ -59,7 +60,7 @@ function App() {
       </main>
 
       <section className="music-section">
-        <p>MUSIC PLAYER</p>
+        <SpotifyPlayer />
       </section>
 
       <aside
