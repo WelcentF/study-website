@@ -1,13 +1,24 @@
 h3 {
-  padding-bottom: 30px;
+  padding-bottom: 0;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.todo-header {
+  padding: 16px;
 }
 
 .todo-container {
   padding: 30px;
-  padding-top: 60px;
   min-width: 350px;
   color: #000000;
   text-shadow: 3px 3px 0px white;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .add-task-row {
@@ -20,7 +31,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(241, 229, 160, 0.3) ;
+  background: rgba(241, 229, 160, 0.3);
   margin-bottom: 8px;
   padding: 10px;
   border-left: 8px solid #e9e59b;
@@ -31,9 +42,8 @@ h3 {
 }
 
 .task-item:hover {
-  transform: scale(1.05); 
-  filter: brightness(1.2); 
-
+  transform: scale(1.05);
+  filter: brightness(1.2);
 }
 
 .pixel-textarea {
@@ -41,16 +51,16 @@ h3 {
   color: #000000;
   border: 4px solid #e0e0e0;
   padding: 10px;
-  font-family: 'Silkscreen', sans-serif;
+  font-family: "Silkscreen", sans-serif;
   font-size: 1rem;
-  
+
   /* This allows the text to wrap */
   white-space: pre-wrap;
   word-wrap: break-word;
-  
+
   /* Disables the user's ability to manually resize the box */
-  resize: none; 
-  
+  resize: none;
+
   outline: none;
   min-height: 60px;
 }
@@ -64,9 +74,8 @@ h3 {
   color: rgb(0, 0, 0);
 }
 
-
-.delete-button{
-  background-color:  #E76E55;
+.delete-button {
+  background-color: #e76e55;
   box-shadow: inset -3px -3px 0px 0px #9c3335;
   transition: all 0.2s ease;
 }
@@ -77,13 +86,32 @@ h3 {
   transition: all 0.2s ease;
   margin-left: 0.7rem;
   margin-right: 2rem;
-
 }
 
-.delete-button:active{
+.delete-button:active {
   box-shadow: inset 3px 3px 0px 0px #9c3335;
 }
 
 .add-button:active {
   box-shadow: inset 3px 3px 0px 0px rgb(139, 182, 74);
+}
+
+.lock-button {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  transition: transform 0.2s ease;
+}
+
+.lock-button:hover {
+  transform: scale(1.2);
+}
+
+.lock-button.locked {
+  opacity: 1;
 }

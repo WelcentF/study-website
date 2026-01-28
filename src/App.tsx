@@ -3,11 +3,14 @@ import { useState, useEffect } from "react";
 import Timer from "./components/Timer";
 import "./App.css";
 import TodoModal from "./components/TodoModal";
+import NotesModal from "./components/NotesModal";
 import SpotifyPlayer from "./components/SpotifyPlayer";
 
 function App() {
   const [isTodoVisible, setIsTodoVisible] = useState(true);
   const [isNotesVisible, setIsNotesVisible] = useState(true);
+  const [isTodoLocked, setIsTodoLocked] = useState(false);
+  const [isNotesLocked, setIsNotesLocked] = useState(false);
 
   const toggleFullScreen = (): void => {
     if (!document.fullscreenElement) {
@@ -21,6 +24,7 @@ function App() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      if (isTodoLocked) return;
       // Show if cursor is near left edge (within 50px)
       if (e.clientX < 50) {
         setIsTodoVisible(true);
@@ -33,26 +37,27 @@ function App() {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [isTodoLocked]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (e.clientX < 120) {
+      if (isNotesLocked) return;
+      if (e.clientX > window.innerWidth - 50) {
         setIsNotesVisible(true);
-      } else if (e.clientX < 450) {
+      } else if (e.clientX < window.innerWidth - 800) {
         setIsNotesVisible(false);
       }
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [isNotesLocked]);
 
   return (
     <div className="app-container">
       {/* The aside now uses a dynamic class for visibility */}
       <aside className={`todo-section ${isTodoVisible ? "visible" : "hidden"}`}>
-        <TodoModal />
+        <TodoModal isLocked={isTodoLocked} onLockToggle={setIsTodoLocked} />
       </aside>
 
       <main className="timer-section">
@@ -66,10 +71,7 @@ function App() {
       <aside
         className={`notes-section ${isNotesVisible ? "visible" : "hidden"}`}
       >
-        <p>
-          NOTES
-          <button onClick={() => toggleFullScreen()}>full</button>
-        </p>
+        <NotesModal isLocked={isNotesLocked} onLockToggle={setIsNotesLocked} />
       </aside>
     </div>
   );

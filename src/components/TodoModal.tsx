@@ -2,7 +2,13 @@
 import { useState, useRef, useEffect } from "react";
 import "./TodoModal.css";
 
-function TodoModal() {
+function TodoModal({
+  isLocked,
+  onLockToggle,
+}: {
+  isLocked: boolean;
+  onLockToggle: (locked: boolean) => void;
+}) {
   const [tasks, setTasks] = useState<string[]>([]);
   const [isAdding, setIsAdding] = useState(false);
   const [tempTask, setTempTask] = useState("");
@@ -73,6 +79,14 @@ function TodoModal() {
           Add New Task
         </button>
       </ul>
+
+      <button
+        className={`lock-button ${isLocked ? "locked" : ""}`}
+        onClick={() => onLockToggle(!isLocked)}
+        title={isLocked ? "Unlock" : "Lock"}
+      >
+        {isLocked ? "🔒" : "🔓"}
+      </button>
     </div>
   );
 }
