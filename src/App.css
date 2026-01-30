@@ -11,7 +11,10 @@
   height: 100vh;
   padding: 20px;
   box-sizing: border-box;
-  background-color: #ffffff;
+  background-image: url("./assets/demo4.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .todo-section {

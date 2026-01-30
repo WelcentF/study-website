@@ -3,6 +3,7 @@ body {
 }
 button {
   border: none;
+  border-radius: 8px;
 }
 button:hover {
   transform: scale(1.1);
@@ -84,4 +85,27 @@ button:hover {
   font-size: 3rem;
   text-shadow: 3px 3px 0px #ffffff;
   /*#afafaf*/
+}
+
+@keyframes redPulse {
+  0%,
+  100% {
+    color: #ff0000;
+    text-shadow:
+      3px 3px 0px #ffffff,
+      0 0 20px rgba(255, 0, 0, 0.8);
+    transform: scale(1);
+  }
+  50% {
+    color: #cc0000;
+    text-shadow:
+      3px 3px 0px #ffffff,
+      0 0 30px rgba(255, 0, 0, 1);
+    transform: scale(1.05);
+  }
+}
+
+.time-display.urgent,
+.status-title.urgent {
+  animation: redPulse 1s ease-in-out infinite;
 }

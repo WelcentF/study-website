@@ -59,6 +59,12 @@
   font-family: "Silkscreen", sans-serif;
   outline: none;
   margin-right: 10px;
+  transition: all 0.2s ease;
+}
+
+.settings-modal-container input:focus {
+  border-color: #92cd41;
+  transform: scale(1.02);
 }
 
 .save-button {

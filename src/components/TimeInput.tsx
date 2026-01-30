@@ -26,6 +26,8 @@ function TimeInput({ label, value, onChange }: TimeInputProps) {
           type="text"
           value={value}
           onChange={handleChange}
+          onClick={(e) => e.stopPropagation()}
+          onFocus={(e) => e.target.select()}
           placeholder="00:00:00"
           maxLength={8}
           className="pixel-input"

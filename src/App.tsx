@@ -8,7 +8,7 @@ import SpotifyPlayer from "./components/SpotifyPlayer";
 
 function App() {
   const [isTodoVisible, setIsTodoVisible] = useState(true);
-  const [isNotesVisible, setIsNotesVisible] = useState(true);
+  const [isNotesVisible, setIsNotesVisible] = useState(false);
   const [isTodoLocked, setIsTodoLocked] = useState(false);
   const [isNotesLocked, setIsNotesLocked] = useState(false);
 
@@ -42,9 +42,12 @@ function App() {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (isNotesLocked) return;
+      // Show if cursor is near right edge (within 50px)
       if (e.clientX > window.innerWidth - 50) {
         setIsNotesVisible(true);
-      } else if (e.clientX < window.innerWidth - 800) {
+      }
+      // Hide if cursor moves away from the modal area (past 450px from right edge)
+      else if (e.clientX < window.innerWidth - 450) {
         setIsNotesVisible(false);
       }
     };

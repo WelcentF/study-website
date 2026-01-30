@@ -114,7 +114,9 @@ function Timer() {
         <span>MINUTES</span>
         <span>SECONDS</span>
       </div>
-      <p className="time-display">
+      <p
+        className={`time-display ${hours === 0 && minutes === 0 && seconds <= 5 && seconds > 0 ? "urgent" : ""}`}
+      >
         {hours.toString().padStart(2, "0")}:
         {minutes.toString().padStart(2, "0")}:
         {seconds.toString().padStart(2, "0")}
