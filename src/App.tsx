@@ -5,12 +5,15 @@ import "./App.css";
 import TodoModal from "./components/TodoModal";
 import NotesModal from "./components/NotesModal";
 import SpotifyPlayer from "./components/SpotifyPlayer";
+import ColorPicker from "./components/ColorPicker";
 
 function App() {
   const [isTodoVisible, setIsTodoVisible] = useState(true);
   const [isNotesVisible, setIsNotesVisible] = useState(false);
   const [isTodoLocked, setIsTodoLocked] = useState(false);
   const [isNotesLocked, setIsNotesLocked] = useState(false);
+  const [themeColor, setThemeColor] = useState("#92cd41");
+  const [isUrgent, setIsUrgent] = useState(false);
 
   const toggleFullScreen = (): void => {
     if (!document.fullscreenElement) {
@@ -56,15 +59,38 @@ function App() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [isNotesLocked]);
 
+  // Update CSS variables when theme color changes
+  useEffect(() => {
+    document.documentElement.style.setProperty("--theme-color", themeColor);
+    // Calculate darker shade for shadows/accents
+    const rgb = parseInt(themeColor.slice(1), 16);
+    const r = Math.max(0, ((rgb >> 16) & 255) - 40);
+    const g = Math.max(0, ((rgb >> 8) & 255) - 40);
+    const b = Math.max(0, (rgb & 255) - 40);
+    const darkerShade = `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, "0")}`;
+    document.documentElement.style.setProperty(
+      "--theme-color-dark",
+      darkerShade,
+    );
+  }, [themeColor]);
+
   return (
-    <div className="app-container">
+    <div className={`app-container ${isUrgent ? "urgent-border" : ""}`}>
+      <button className="fullscreen-button" onClick={toggleFullScreen}>
+        ⛶
+      </button>
+
       {/* The aside now uses a dynamic class for visibility */}
       <aside className={`todo-section ${isTodoVisible ? "visible" : "hidden"}`}>
         <TodoModal isLocked={isTodoLocked} onLockToggle={setIsTodoLocked} />
       </aside>
 
       <main className="timer-section">
-        <Timer />
+        <Timer
+          themeColor={themeColor}
+          onColorChange={setThemeColor}
+          onUrgentChange={setIsUrgent}
+        />
       </main>
 
       <section className="music-section">

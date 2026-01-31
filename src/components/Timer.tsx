@@ -2,7 +2,13 @@ import SettingsModal from "./SettingsModal";
 import "./Timer.css";
 import { useState, useEffect } from "react";
 
-function Timer() {
+interface TimerProps {
+  themeColor: string;
+  onColorChange: (color: string) => void;
+  onUrgentChange?: (isUrgent: boolean) => void;
+}
+
+function Timer({ themeColor, onColorChange, onUrgentChange }: TimerProps) {
   const [studyHours, setStudyHours] = useState(0);
   const [studyMinutes, setStudyMinutes] = useState(25);
   const [studySeconds, setStudySeconds] = useState(0);
@@ -60,6 +66,29 @@ function Timer() {
     }
   };
 
+  const playDingSound = () => {
+    const audioContext = new (
+      window.AudioContext || (window as any).webkitAudioContext
+    )();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator.frequency.value = 800;
+    oscillator.type = "sine";
+
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(
+      0.01,
+      audioContext.currentTime + 0.5,
+    );
+
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.5);
+  };
+
   useEffect(() => {
     let interval: number | undefined;
 
@@ -75,6 +104,7 @@ function Timer() {
           setMinutes(59);
           setSeconds(59);
         } else {
+          playDingSound();
           const nextIsBreak = !isBreak;
           setIsBreak(nextIsBreak);
 
@@ -105,6 +135,14 @@ function Timer() {
     breakMinutes,
     breakSeconds,
   ]);
+
+  useEffect(() => {
+    const isUrgentState =
+      hours === 0 && minutes === 0 && seconds <= 5 && seconds > 0;
+    if (onUrgentChange) {
+      onUrgentChange(isUrgentState);
+    }
+  }, [hours, minutes, seconds, onUrgentChange]);
 
   return (
     <div>
@@ -146,6 +184,8 @@ function Timer() {
         <SettingsModal
           closeSettingsModal={setOpenSettingsModal}
           onSaveSettings={handleSaveSettings}
+          themeColor={themeColor}
+          onColorChange={onColorChange}
         />
       )}
     </div>

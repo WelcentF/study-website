@@ -22,7 +22,8 @@
   min-width: 320px;
   position: relative; /* To position the X button inside */
 
-  backdrop-filter: blur(5px);
+  background: color-mix(in srgb, var(--theme-color, #92cd41) 15%, transparent);
+  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0px 0px 8px 6px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
@@ -47,7 +48,6 @@
   flex-direction: column; /* This stacks the <p> on top of the controls div */
   align-items: center; /* Aligns text to the left */
   width: 100%;
-  gap: 10px; /* Uniform spacing for a cleaner look */
 }
 
 .settings-modal-container input {
@@ -60,6 +60,29 @@
   outline: none;
   margin-right: 10px;
   transition: all 0.2s ease;
+}
+
+.color-picker-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.color-picker-section label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.color-input {
+  width: 50px !important;
+  height: 30px !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0px !important;
+  cursor: pointer;
+  background: #ffffff;
+  padding: 2px !important;
 }
 
 .settings-modal-container input:focus {

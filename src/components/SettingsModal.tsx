@@ -5,11 +5,15 @@ import TimeInput from "./TimeInput";
 interface SettingsModalProps {
   closeSettingsModal: (value: boolean) => void;
   onSaveSettings: (studyTime: string, breakTime: string) => void;
+  themeColor: string;
+  onColorChange: (color: string) => void;
 }
 
 function SettingsModal({
   closeSettingsModal,
   onSaveSettings,
+  themeColor,
+  onColorChange,
 }: SettingsModalProps) {
   const [studyTime, setStudyTime] = useState("00:25:00");
   const [breakTime, setBreakTime] = useState("00:05:00");
@@ -39,6 +43,17 @@ function SettingsModal({
           value={breakTime}
           onChange={setBreakTime}
         />
+
+        <div className="color-picker-section">
+          <label htmlFor="theme-color-input">Theme Color</label>
+          <input
+            id="theme-color-input"
+            type="color"
+            value={themeColor}
+            onChange={(e) => onColorChange(e.target.value)}
+            className="color-input"
+          />
+        </div>
 
         <button className="save-button" onClick={handleSave}>
           Save All Settings
