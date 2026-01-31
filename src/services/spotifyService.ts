@@ -39,4 +39,90 @@ export const spotifyApi = {
 
     return response.json();
   },
+
+  // Search for tracks
+  async searchTracks(query: string, token: string) {
+    const response = await fetch(
+      `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=10`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.json();
+  },
+
+  // Play a track
+  async playTrack(trackUri: string, token: string) {
+    const response = await fetch("https://api.spotify.com/v1/me/player/play", {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        uris: [trackUri],
+      }),
+    });
+    return response;
+  },
+
+  // Pause playback
+  async pausePlayback(token: string) {
+    const response = await fetch("https://api.spotify.com/v1/me/player/pause", {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  },
+
+  // Resume playback
+  async resumePlayback(token: string) {
+    const response = await fetch("https://api.spotify.com/v1/me/player/play", {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  },
+
+  // Get current playback state
+  async getCurrentPlayback(token: string) {
+    const response = await fetch("https://api.spotify.com/v1/me/player", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 204) return null;
+    return response.json();
+  },
+
+  // Skip to next track
+  async skipToNext(token: string) {
+    const response = await fetch("https://api.spotify.com/v1/me/player/next", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  },
+
+  // Skip to previous track
+  async skipToPrevious(token: string) {
+    const response = await fetch(
+      "https://api.spotify.com/v1/me/player/previous",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response;
+  },
 };
