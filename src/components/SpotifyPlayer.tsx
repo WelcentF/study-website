@@ -48,6 +48,101 @@ const LYRICS_DATABASE: Record<string, string> = {
 [03:27.19] I know that I'll love you always
 [03:30.35] Yeah, girl, you, and I like that
 [03:34.99] `,
+  "Man I Need - Olivia Dean": `[00:01.01] Talk to me, talk to me
+[00:04.62] Talk to me, talk to me
+[00:07.89] Hm
+[00:09.63] Looks like we're making up for lost time
+[00:13.71] Need you to spell it out for me
+[00:17.47] Bossa Nova on all night
+[00:21.63] It's like a type of alchemy
+[00:25.47] Introduce me to your best friend
+[00:29.71] I can come and slot right in
+[00:33.83] A satellite ain't even that far
+[00:37.59] I, I kinda wonder where you are
+[00:41.07] Already know I can't leave it alone
+[00:43.71] You're on my mind, mm
+[00:48.23] Already gave you the time and the place
+[00:51.79] So, don't be shy
+[00:54.35] Just come be the man I need
+[00:56.47] Tell me you got something to give, I want it
+[01:00.88] I kinda like it when you call me wonderful
+[01:05.11] Whatever the type of talk it is, come on then
+[01:08.83] I gotta know you're meant to be the man I need
+[01:13.47] Talk to me
+[01:14.95] Talk to me
+[01:16.79] Mm, talk to me, talk to me
+[01:18.79] Be the man that I need, baby
+[01:20.83] Talk to me, talk to me
+[01:22.68] Be the man that I need, need, need
+[01:25.15] Mm, talk to me, talk to me
+[01:26.67] Be the man that I need, baby
+[01:29.03] Talk to me, talk to me
+[01:30.67] Be the man, man, man, man, man
+[01:34.55] I'd like to think you feel the same way
+[01:37.99] But I can't tell with you sometimes
+[01:42.27] So, baby, let's get on the same page
+[01:46.32] Stop making me read between the lines
+[01:49.35] Already know I can't leave it alone
+[01:52.15] You're on my mind, mm
+[01:55.43] Already gave you the time and the place
+[01:59.79] So, don't be shy
+[02:02.67] Just come be the man I need
+[02:05.03] Tell me you got something to give, I want it
+[02:09.39] I kinda like it when you call me wonderful
+[02:13.35] Whatever the type of talk it is, come on then
+[02:17.31] I gotta know you're meant to be the man I need
+[02:21.95] Talk to me, talk to me
+[02:25.00] Talk to me, talk to me
+[02:29.43] Mm, talk to me, talk to me
+[02:31.44] Be the man that I need, baby (be the man)
+[02:33.95] Talk to me, talk to me
+[02:35.28] Be the man that I need, need, need
+[02:37.40] Mm, talk to me, talk to me
+[02:39.28] Be the man that I need, baby (be the man)
+[02:41.67] Talk to me, talk to me
+[02:43.23] Be the man, man, man, man, man
+[02:45.83] Mm
+[02:49.59] Mm-mm, mm-mm, mm
+[02:53.35] Mm-mm, mm
+[02:55.71] Mm-mm, mm-mm, mm-mm, mm-mm, mm
+[03:01.71] 
+`,
+  "So Easy (To Fall In Love) - Olivia Dean": `[00:05.74] I could be the twist, the one to make you stop
+[00:08.97] The icing on your cake, the cherry on the top
+[00:12.47] It's heaven in my heart, and we could find you some space, mm
+[00:19.39] I could be the world to you, the missing piece
+[00:22.53] That extra sentimental kind of chemistry
+[00:25.93] Some people make it hard, with me, that isn't the case
+[00:30.68] 'Cause I make it so easy to fall in love
+[00:37.36] So come give me a call, and we'll fall into us
+[00:44.12] I'm the perfect mix of Saturday night and the rest of your life
+[00:49.47] Anyone with a heart would agree
+[00:53.22] It's so easy to fall in love with
+[00:58.66] The way I do my hair, the way I make you laugh
+[01:02.00] The way we like to share, a walk in Central Park
+[01:05.67] I could be fresh air, might be the girl of your dreams (dream, dream)
+[01:12.03] There's no need to hide if you're into me
+[01:15.36] 'Cause I'm into you quite intimately
+[01:18.86] And maybe one night could turn into three
+[01:22.01] Well, I'm down to see
+[01:23.79] 'Cause I make it so easy to fall in love
+[01:30.53] So come give me a call, and we'll fall into us
+[01:37.22] I'm the perfect mix of Saturday night and the rest of your life
+[01:42.67] Anyone with a heart would agree
+[01:46.42] It's so easy to fall in love with me (me, me)
+[01:55.54] (Me, me, me, me, me, me)
+[02:04.94] It's so easy (me, me)
+[02:08.64] It's so easy (me, me)
+[02:12.19] It's so easy (me, me)
+[02:14.99] Hey, yeah, hey (me, me)
+[02:18.19] It's so easy to fall in love
+[02:23.66] So come give me a call, and we'll fall into us
+[02:30.46] I'm the perfect mix of Saturday night and the rest of your life
+[02:35.83] Anyone with a heart would agree
+[02:39.54] It's so easy to fall in love with me
+[02:45.08] 
+
+`,
   // Add songs by track name and artist
   // "Who Knows - Daniel Caesar": `your LRC format lyrics here`,
 };
