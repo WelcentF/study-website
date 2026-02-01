@@ -79,7 +79,7 @@ function Timer({ themeColor, onColorChange, onUrgentChange }: TimerProps) {
     oscillator.frequency.value = 800;
     oscillator.type = "sine";
 
-    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.setValueAtTime(0.4, audioContext.currentTime);
     gainNode.gain.exponentialRampToValueAtTime(
       0.01,
       audioContext.currentTime + 0.5,

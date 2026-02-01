@@ -231,11 +231,14 @@ const SpotifyPlayer = () => {
           const newToken = await refreshTokenIfNeeded();
           if (newToken) {
             // Retry with new token
-            const retryResponse = await fetch("https://api.spotify.com/v1/me/player", {
-              headers: {
-                Authorization: `Bearer ${newToken}`,
+            const retryResponse = await fetch(
+              "https://api.spotify.com/v1/me/player",
+              {
+                headers: {
+                  Authorization: `Bearer ${newToken}`,
+                },
               },
-            });
+            );
             if (retryResponse.status === 204) return;
             const playback = await retryResponse.json();
             if (playback && playback.item) {
