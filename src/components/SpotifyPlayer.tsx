@@ -158,6 +158,36 @@ const SpotifyPlayer = () => {
   const [parsedLyrics, setParsedLyrics] = useState<LyricLine[]>([]);
   const [lyricKey, setLyricKey] = useState(0);
 
+  // Function to refresh token if expired
+  const refreshTokenIfNeeded = async () => {
+    const refreshToken = localStorage.getItem("refresh_token");
+    if (!refreshToken) {
+      // No refresh token available, need to re-authenticate
+      setToken(null);
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      return null;
+    }
+
+    try {
+      const data = await spotifyApi.refreshAccessToken(refreshToken);
+      if (data.access_token) {
+        setToken(data.access_token);
+        localStorage.setItem("access_token", data.access_token);
+        if (data.refresh_token) {
+          localStorage.setItem("refresh_token", data.refresh_token);
+        }
+        return data.access_token;
+      }
+    } catch (error) {
+      console.error("Failed to refresh token:", error);
+      setToken(null);
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+    }
+    return null;
+  };
+
   useEffect(() => {
     const queryString = window.location.search;
     if (queryString.length > 0) {
@@ -170,6 +200,9 @@ const SpotifyPlayer = () => {
           if (data.access_token) {
             setToken(data.access_token);
             localStorage.setItem("access_token", data.access_token);
+            if (data.refresh_token) {
+              localStorage.setItem("refresh_token", data.refresh_token);
+            }
             window.history.pushState("", "", REDIRECT_URI);
           }
         });
@@ -187,7 +220,36 @@ const SpotifyPlayer = () => {
 
     const fetchCurrentPlayback = async () => {
       try {
-        const playback = await spotifyApi.getCurrentPlayback(token);
+        const response = await fetch("https://api.spotify.com/v1/me/player", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        // Token expired
+        if (response.status === 401) {
+          const newToken = await refreshTokenIfNeeded();
+          if (newToken) {
+            // Retry with new token
+            const retryResponse = await fetch("https://api.spotify.com/v1/me/player", {
+              headers: {
+                Authorization: `Bearer ${newToken}`,
+              },
+            });
+            if (retryResponse.status === 204) return;
+            const playback = await retryResponse.json();
+            if (playback && playback.item) {
+              setCurrentTrack(playback.item);
+              setIsPlaying(playback.is_playing);
+              setProgress(playback.progress_ms || 0);
+              setDuration(playback.item.duration_ms || 0);
+            }
+          }
+          return;
+        }
+
+        if (response.status === 204) return;
+        const playback = await response.json();
         if (playback && playback.item) {
           setCurrentTrack(playback.item);
           setIsPlaying(playback.is_playing);

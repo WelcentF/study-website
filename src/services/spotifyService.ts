@@ -40,6 +40,28 @@ export const spotifyApi = {
     return response.json();
   },
 
+  // Step 3: Refresh the Access Token
+  async refreshAccessToken(refreshToken: string) {
+    const clientId = localStorage.getItem("client_id");
+    const clientSecret = localStorage.getItem("client_secret");
+
+    const params = new URLSearchParams();
+    params.append("grant_type", "refresh_token");
+    params.append("refresh_token", refreshToken);
+    params.append("client_id", clientId!);
+    params.append("client_secret", clientSecret!);
+
+    const response = await fetch(TOKEN_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: params,
+    });
+
+    return response.json();
+  },
+
   // Search for tracks
   async searchTracks(query: string, token: string) {
     const response = await fetch(
