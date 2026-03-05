@@ -3,7 +3,7 @@ h3 {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text-secondary);
   text-shadow: none;
 }
 
@@ -15,13 +15,13 @@ h3 {
 .todo-container {
   padding: 0px;
   min-width: 350px;
-  color: #000000;
-  text-shadow: 3px 3px 0px white;
+  color: var(--text-primary);
+  text-shadow: 3px 3px 0px var(--timer-text-shadow);
   position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: color-mix(in srgb, var(--theme-color, #92cd41) 15%, transparent);
+  background: var(--panel-tint);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 8px;
@@ -37,14 +37,12 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: color-mix(in srgb, var(--theme-color, #92cd41) 30%, transparent);
+  background: color-mix(in srgb, var(--theme-color, #92cd41) 30%, var(--panel-bg));
   margin-bottom: 8px;
   padding: 10px;
   border-left: 8px solid var(--theme-color, #92cd41);
-  transition: all 0.2s ease; /* Smooths the grow and brighten effect */
-
-  /* Horizontal Offset | Vertical Offset | Blur | Spread | Color */
-  box-shadow: 6px 6px 5px 0px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  box-shadow: 6px 6px 5px 0px var(--shadow-color);
 }
 
 .task-item:hover {
@@ -54,8 +52,9 @@ h3 {
 
 .pixel-textarea {
   flex-grow: 1;
-  color: #000000;
-  border: 4px solid #e0e0e0;
+  color: var(--text-primary);
+  background: var(--input-bg);
+  border: 4px solid var(--input-border);
   padding: 10px;
   font-family: "Silkscreen", sans-serif;
   font-size: 1rem;
@@ -74,10 +73,10 @@ h3 {
 /* Ensure the task items also wrap if the saved text is long */
 .task-text {
   flex-grow: 1;
-  word-break: break-word; /* Forces long words to break and wrap */
+  word-break: break-word;
   padding-right: 10px;
   line-height: 1.4;
-  color: rgb(0, 0, 0);
+  color: var(--text-primary);
 }
 
 .delete-button {

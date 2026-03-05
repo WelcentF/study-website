@@ -5,15 +5,60 @@ import "./App.css";
 import TodoModal from "./components/TodoModal";
 import NotesModal from "./components/NotesModal";
 import SpotifyPlayer from "./components/SpotifyPlayer";
-import ColorPicker from "./components/ColorPicker";
+
+const STORAGE_KEYS = {
+  THEME: "study-app-theme",
+  LOCKS: "study-app-locks",
+  DARK_MODE: "study-app-dark-mode",
+} as const;
+
+function getInitialTheme(): string {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEYS.THEME);
+    if (saved) return saved;
+  } catch (_) {}
+  return "#92cd41";
+}
+
+function getInitialLocks(): { todo: boolean; notes: boolean } {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEYS.LOCKS);
+    if (saved) {
+      const parsed = JSON.parse(saved) as { todoLocked?: boolean; notesLocked?: boolean };
+      return { todo: !!parsed.todoLocked, notes: !!parsed.notesLocked };
+    }
+  } catch (_) {}
+  return { todo: false, notes: false };
+}
+
+function getInitialDarkMode(): boolean {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEYS.DARK_MODE);
+    if (saved !== null) return saved === "true";
+  } catch (_) {}
+  return false;
+}
 
 function App() {
   const [isTodoVisible, setIsTodoVisible] = useState(true);
   const [isNotesVisible, setIsNotesVisible] = useState(false);
-  const [isTodoLocked, setIsTodoLocked] = useState(false);
-  const [isNotesLocked, setIsNotesLocked] = useState(false);
-  const [themeColor, setThemeColor] = useState("#92cd41");
+  const [isTodoLocked, setIsTodoLocked] = useState(() => getInitialLocks().todo);
+  const [isNotesLocked, setIsNotesLocked] = useState(() => getInitialLocks().notes);
+  const [themeColor, setThemeColor] = useState(getInitialTheme);
+  const [isDarkMode, setIsDarkMode] = useState(getInitialDarkMode);
   const [isUrgent, setIsUrgent] = useState(false);
+  const [isFullscreenButtonVisible, setIsFullscreenButtonVisible] =
+    useState(false);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", isDarkMode ? "dark" : "light");
+  }, [isDarkMode]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEYS.DARK_MODE, String(isDarkMode));
+    } catch (_) {}
+  }, [isDarkMode]);
 
   const toggleFullScreen = (): void => {
     if (!document.fullscreenElement) {
@@ -59,6 +104,20 @@ function App() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [isNotesLocked]);
 
+  // Hide fullscreen button when mouse isn't near it (top-right corner)
+  useEffect(() => {
+    const PROXIMITY_PX = 100; // show button when mouse is within this many px of top-right
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const nearTop = e.clientY < PROXIMITY_PX;
+      const nearRight = e.clientX > window.innerWidth - PROXIMITY_PX;
+      setIsFullscreenButtonVisible(nearTop && nearRight);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   // Update CSS variables when theme color changes
   useEffect(() => {
     document.documentElement.style.setProperty("--theme-color", themeColor);
@@ -74,11 +133,38 @@ function App() {
     );
   }, [themeColor]);
 
+  // Persist theme when it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEYS.THEME, themeColor);
+    } catch (_) {}
+  }, [themeColor]);
+
+  // Persist lock state when it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        STORAGE_KEYS.LOCKS,
+        JSON.stringify({ todoLocked: isTodoLocked, notesLocked: isNotesLocked }),
+      );
+    } catch (_) {}
+  }, [isTodoLocked, isNotesLocked]);
+
   return (
     <div className={`app-container ${isUrgent ? "urgent-border" : ""}`}>
-      <button className="fullscreen-button" onClick={toggleFullScreen}>
-        ⛶
-      </button>
+      <div className={`top-right-buttons ${isFullscreenButtonVisible ? "visible" : "hidden"}`}>
+        <button
+          className="theme-toggle-button"
+          onClick={() => setIsDarkMode((d) => !d)}
+          title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+          aria-label={isDarkMode ? "Light mode" : "Dark mode"}
+        >
+          {isDarkMode ? "☀️" : "🌙"}
+        </button>
+        <button className="fullscreen-button" onClick={toggleFullScreen}>
+          ⛶
+        </button>
+      </div>
 
       {/* The aside now uses a dynamic class for visibility */}
       <aside className={`todo-section ${isTodoVisible ? "visible" : "hidden"}`}>

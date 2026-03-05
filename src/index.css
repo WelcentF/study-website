@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen&display=swap");
 
 :root {
-  /* Spotify-style Dark Theme */
   --bg-color: #ffffff;
   --card-bg: #181818;
   --spotify-green: #1db954;
@@ -10,19 +9,45 @@
   --font-retro: "Press Start 2P", cursive;
   --font-pixel: "Silkscreen", sans-serif;
 
+  /* Light mode (default) */
+  --page-bg: #f0f0f0;
+  --text-primary: #121212;
+  --text-secondary: #333333;
+  --panel-bg: rgba(255, 255, 255, 0.9);
+  --panel-tint: color-mix(in srgb, var(--theme-color, #92cd41) 15%, var(--panel-bg));
+  --input-bg: #ffffff;
+  --input-border: #e0e0e0;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --timer-text-shadow: #ffffff;
+  --urgent-shadow: #ffffff;
+
   line-height: 1.5;
   font-weight: 400;
+}
+
+[data-theme="dark"] {
+  --page-bg: #1a1a1a;
+  --text-primary: #e8e8e8;
+  --text-secondary: #b0b0b0;
+  --panel-bg: rgba(35, 35, 35, 0.95);
+  --panel-tint: color-mix(in srgb, var(--theme-color, #92cd41) 15%, var(--panel-bg));
+  --input-bg: #2d2d2d;
+  --input-border: #555555;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --timer-text-shadow: #0a0a0a;
+  --urgent-shadow: #2a0a0a;
 }
 
 body {
   margin: 0;
   padding: 0;
-  /*background-image: url(./assets/demo4.gif); */
+  background-color: var(--page-bg);
   background-size: cover;
   background-position: center;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  transition: background-color 0.3s ease;
 }
 
 #root {

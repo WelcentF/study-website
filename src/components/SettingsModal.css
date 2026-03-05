@@ -20,12 +20,12 @@
   flex-direction: column;
   gap: 20px;
   min-width: 320px;
-  position: relative; /* To position the X button inside */
+  position: relative;
 
-  background: color-mix(in srgb, var(--theme-color, #92cd41) 15%, transparent);
+  background: var(--panel-tint);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0px 0px 8px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 8px 6px var(--shadow-color);
   border-radius: 8px;
 }
 
@@ -38,7 +38,7 @@
 .close-button button {
   background: none;
   border: none;
-  color: black;
+  color: var(--text-primary);
   font-size: 1.2rem;
   cursor: pointer;
 }
@@ -52,9 +52,9 @@
 
 .settings-modal-container input {
   width: 100px;
-  background: #ffffff;
-  border: 2px solid #000000;
-  color: #000000;
+  background: var(--input-bg);
+  border: 2px solid var(--input-border);
+  color: var(--text-primary);
   padding: 5px;
   font-family: "Silkscreen", sans-serif;
   outline: none;
@@ -86,7 +86,7 @@
 }
 
 .settings-modal-container input:focus {
-  border-color: #92cd41;
+  border-color: var(--theme-color, #92cd41);
   transform: scale(1.02);
 }
 

@@ -2,6 +2,19 @@
 import { useState, useRef, useEffect } from "react";
 import "./TodoModal.css";
 
+const TODO_STORAGE_KEY = "study-app-todo-tasks";
+
+function loadTasks(): string[] {
+  try {
+    const raw = localStorage.getItem(TODO_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.map(String) : [];
+  } catch {
+    return [];
+  }
+}
+
 function TodoModal({
   isLocked,
   onLockToggle,
@@ -9,10 +22,16 @@ function TodoModal({
   isLocked: boolean;
   onLockToggle: (locked: boolean) => void;
 }) {
-  const [tasks, setTasks] = useState<string[]>([]);
+  const [tasks, setTasks] = useState<string[]>(loadTasks);
   const [isAdding, setIsAdding] = useState(false);
   const [tempTask, setTempTask] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(tasks));
+    } catch (_) {}
+  }, [tasks]);
 
   // Auto-focus the textarea when it appears
   useEffect(() => {
